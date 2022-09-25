@@ -4,7 +4,7 @@ import './App.css';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { AppBar, Container, IconButton, Toolbar, Typography, Box, Grid, Paper, Card, CardMedia, CardContent, CardActions } from '@material-ui/core';
+import { AppBar, Container, IconButton, Toolbar, Typography, Box, Grid, Paper, Card, CardMedia, CardContent, CardActions, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions } from '@material-ui/core';
 
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -68,9 +68,16 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 function App() {
   const classes = useStyles();
   const [value, setValue] = React.useState("recents")
+  const [open, setOpen] = React.useState(false)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
+  }
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
   }
 
   return (
@@ -83,7 +90,34 @@ function App() {
             </IconButton>
             <Typography variant='h6' className={classes.title}>Material Site Practice</Typography>
             <Box className={classes.buttonMargin}>
-              <Button color='inherit' variant='outlined'>Sign In</Button>
+              <Button color='inherit' variant='outlined' onClick={handleClickOpen}>Log In</Button>
+
+              <Dialog open={open} onclose={handleClose} aria-labelledly="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Log in</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>Log in to see videos</DialogContentText>
+                  <TextField 
+                    autoFocus
+                    margin='dense'
+                    id="name"
+                    label="Email Adress"
+                    type="email"
+                    fullWidth
+                  />
+                  <TextField 
+                    autoFocus
+                    margin='dense'
+                    id="password"
+                    label="Password"
+                    type="password"
+                    fullWidth
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">Cancel</Button>
+                  <Button onClick={handleClose} color="primary">Log in</Button>
+                </DialogActions>
+              </Dialog>
             </Box>
             <Button color='secondary' variant='contained'>Sign Up</Button>
           </Toolbar>
